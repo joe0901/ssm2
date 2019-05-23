@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.how2java.mapper.DiaryMapper">
+	    <insert id="add" parameterType="Diary" >
+	    <!-- INSERT INTO diary (writer,DATE,content,title) VALUES ("joejoe","2019-05-22 14:00:00","gogogo","啾啾赛高"); -->
+	    INSERT INTO diary (writer,date,content,title) VALUES (#{writer},#{date},#{content},#{title});
+	    </insert>
+	    
+	    <delete id="delete" parameterType="Diary" >
+	        delete from diary where id= #{id}   
+	    </delete>
+	    
+	    <select id="get" parameterType="int" resultType="Diary">
+	        select * from   diary  where id= #{id}    
+	    </select>
+
+	    <update id="update" parameterType="Diary" >
+	        update diary set writer=#{writer},date=#{date},content=#{content},title=#{title} 
+	        where id=#{id}    
+	    </update>
+	    <select id="list" resultType="Diary">
+	        select * from  diary
+	    </select>	    
+	</mapper>
+
