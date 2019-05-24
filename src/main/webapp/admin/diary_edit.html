@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>日记编辑</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+  
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- 富文本编辑器 -->
+	<link rel="stylesheet" href="../plugins/kindeditor/themes/default/default.css" />
+	<script charset="utf-8" src="../plugins/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="../plugins/kindeditor/lang/zh_CN.js"></script>
+    
+    <!-- 引入angular -->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/diaryController.js"></script>
+    <script type="text/javascript" src="../js/service/diaryService.js"></script>
+    
+    
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="diaryController" ng-init="findById()" >
+            <!-- 正文区域 -->
+            <section class="content">
+                <div class="box-body">
+                    <!--tab页-->
+                    <div class="nav-tabs-custom">
+                        <!--tab内容-->
+                        <div class="tab-content" style="width:100%;height:500px;">
+                            <!--表单内容-->
+                            <div class="tab-pane active" id="home" >
+                                <div class="row data-type"> 
+                                <input type="hidden"  ng-model="entity.id" class="form-control" placeholder="id" value="">    
+		                           <div class="col-md-2 title">文章标题</div>
+		                           <div class="col-md-10 data">
+		                               <input type="text" ng-model="entity.title" class="form-control" placeholder="文章标题" value="">
+		                           </div>
+								   <div class="col-md-2 title">作者</div>
+		                           <div class="col-md-10 data">
+		                               <input type="text" ng-model="entity.writer"  class="form-control"   placeholder="作者" value="">
+		                           </div>
+		                           <div class="col-md-2 title editer" style="height:416px;">正文</div>
+                                   <div class="col-md-10 data editer" style="height:416px;">
+                                       <textarea name="content" style="width:800px;height:800px;visibility:hidden;" ></textarea>
+                                   </div>
+                                </div>
+                            </div>
+                    </div>
+                 	
+                   </div>
+                   </div>
+                  <div class="btn-toolbar list-toolbar">
+				      <button class="btn btn-primary" ng-click="save()"><i class="fa fa-save"></i>保存日记</button>
+				      <button class="btn btn-default" href="diaryList.html#">返回列表</button>
+				  </div>
+			
+            </section>
+            
+            
+            
+            <!-- 正文区域 /-->
+<script type="text/javascript">
+
+	var editor;
+	KindEditor.ready(function(K) {
+		editor = K.create('textarea[name="content"]', {
+			allowFileManager : true,
+			resizeType : 1,
+			width:"100%",
+			height:"500px"
+		});
+	});
+</script>
+       
+</body>
+
+</html>

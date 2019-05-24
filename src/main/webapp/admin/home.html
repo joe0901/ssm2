@@ -14,9 +14,18 @@
     <link rel="stylesheet" href="../css/style.css">
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    
+        <!-- 引入angular -->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/diaryController.js"></script>
+    <script type="text/javascript" src="../js/controller/homeController.js"></script>
+    <script type="text/javascript" src="../js/service/diaryService.js"></script>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="pinyougou" ng-controller="homeController">
 
    <!-- 内容区域 -->
 
@@ -43,9 +52,9 @@
                         <!-- small box -->
                         <div class="small-box bg-aqua">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3>???</h3>
 
-                                <p>新订单</p>
+                                <p>日记总数</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -58,9 +67,9 @@
                         <!-- small box -->
                         <div class="small-box bg-green">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                <h3>???<sup style="font-size: 20px">%</sup></h3>
 
-                                <p>转化率</p>
+                                <p>最后登录时间</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
@@ -73,9 +82,9 @@
                         <!-- small box -->
                         <div class="small-box bg-yellow">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h3>???</h3>
 
-                                <p>新注册用户</p>
+                                <p>最后编辑时间</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>

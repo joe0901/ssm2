@@ -51,6 +51,20 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 		);				
 	}
 	
+	$scope.add = function(){
+		sellerService.add( $scope.entity  ).success(
+			function(response){
+				if(response.flag){
+					// 重新查询 
+		        	// $scope.reloadList();//重新加载
+					location.href="shoplogin.html";
+				}else{
+					alert(response.message);
+				}
+			}		
+		);	
+	}
+	
 	 
 	//批量删除 
 	$scope.dele=function(){			
@@ -77,14 +91,4 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 		);
 	}
     
-	$scope.updateStatus = function(sellerId,status){
-		sellerService.updateStatus(sellerId,status).success(function(response){
-			if(response.flag){
-				//重新查询 
-	        	$scope.reloadList();//重新加载
-			}else{
-				alert(response.message);
-			}
-		});
-	}
 });	

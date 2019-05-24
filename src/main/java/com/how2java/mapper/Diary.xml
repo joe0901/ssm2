@@ -23,6 +23,6 @@
 	    </update>
 	    <select id="list" resultType="Diary">
 	        select * from  diary
-	    </select>	    
+	    </select>	 
 	</mapper>
 

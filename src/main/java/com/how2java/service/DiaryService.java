@@ -7,16 +7,16 @@ import com.how2java.pojo.entity.PageResult;
 
 public interface DiaryService {
 
-	  public int add(Diary  diary);  
+	  public int add(Diary  diary) throws Exception;  
 	       
 	      
 	    public void delete(int id);  
 	       
 	      
-	    public Diary  get(int id);  
+	    public Diary  get(int id) throws Exception;  
 	     
 	      
-	    public int update(Diary  category);   
+	    public int update(Diary  category) throws Exception;   
 	       
 	      
 	    public List<Diary > list();
@@ -25,6 +25,9 @@ public interface DiaryService {
 	    public int count();
 
 
-		PageResult findByPage(int pageNum, int pageSize);  
+		PageResult findByPage(int pageNum, int pageSize);
+
+
+		public void delete(int[] ids);  
 
 }

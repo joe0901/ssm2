@@ -1,5 +1,5 @@
 // 定义控制器:
-app.controller("diaryController",function($scope,$controller,$http,diaryService){
+app.controller("diaryController",function($scope,$controller,$http,$location,diaryService){
 	// AngularJS中的继承:伪继承
 	$controller('baseController',{$scope:$scope});
 	
@@ -22,6 +22,8 @@ app.controller("diaryController",function($scope,$controller,$http,diaryService)
 	
 	// 保存品牌的方法:
 	$scope.save = function(){
+		// 再添加之前，获得富文本编辑器中的内容。
+		$scope.entity.content=editor.html();
 		// 区分是保存还是修改
 		var object;
 		if($scope.entity.id != null){
@@ -45,11 +47,24 @@ app.controller("diaryController",function($scope,$controller,$http,diaryService)
 		});
 	}
 	
-	// 查询一个:
-	$scope.findById = function(id){
+	// 查询一个: 这是原来的写法,但是点击修改按钮是跳转到编辑页面,所以这个方法用不上
+//	$scope.findById = function(id){
+//		var id = $location.search()['id'];
+//		diaryService.findById(id).success(function(response){
+//			// {id:xx,name:yy,firstChar:zz}
+//			$scope.entity = response;
+//		});
+//	}
+	
+	// 查询一个: 这是在页面跳转之后 init调用的
+	$scope.findById = function(){
+		var id = $location.search()['id'];	//获取跳转带参
+		//alert(id)
 		diaryService.findById(id).success(function(response){
 			// {id:xx,name:yy,firstChar:zz}
 			$scope.entity = response;
+			//回写富文本编辑器中的内容。
+			editor.html($scope.entity.content);
 		});
 	}
 	

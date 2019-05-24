@@ -3,8 +3,8 @@ app.controller("baseController",function($scope){
 	$scope.paginationConf = {
 		 currentPage: 1, // 当前页数
 		 totalItems: 10, // 总记录数
-		 itemsPerPage: 2, // 每页显示多少条记录
-		 perPageOptions: [2,3,4,5],// 显示多少条下拉列表
+		 itemsPerPage: 8, // 每页显示多少条记录
+		 perPageOptions: [8,16,24,32],// 显示多少条下拉列表
 		 onChange: function(){ // 当页码、每页显示多少条下拉列表发生变化的时候，自动触发了
 			$scope.reloadList();// 重新加载列表
 		 }

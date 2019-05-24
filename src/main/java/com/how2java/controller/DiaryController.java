@@ -13,6 +13,7 @@ import com.how2java.pojo.entity.PageResult;
 import com.how2java.pojo.entity.Result;
 import com.how2java.service.DiaryService;
 
+
 // 告诉spring mvc这是一个控制器类
 @RestController
 @RequestMapping("/diary")
@@ -46,7 +47,7 @@ public class DiaryController {
 	}
 	
 	@RequestMapping("/findById")
-	public Diary findById(int id){
+	public Diary findById(int id) throws Exception{
 		return diaryService.get(id);
 	}
 	
@@ -65,5 +66,16 @@ public class DiaryController {
 	@RequestMapping("/findByPage")
 	public PageResult findByPage(int page,int rows){
 		return diaryService.findByPage(page, rows);
+	}
+	
+	@RequestMapping("/delete")
+	public Result delete(int[] ids){
+		try{
+			diaryService.delete(ids);
+			return new Result(true,"删除成功!");
+		}catch(Exception e){
+			e.printStackTrace();
+			return new Result(false,"删除失败!");
+		}
 	}
 }
