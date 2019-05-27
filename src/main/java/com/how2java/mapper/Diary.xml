@@ -23,6 +23,12 @@
 	    </update>
 	    <select id="list" resultType="Diary">
 	        select * from  diary
-	    </select>	 
+	    </select>	 	   
+	     <select id="count" resultType="int">
+	        select count(*) from  diary
+	    </select>	
+	    <select id="lastEdit" resultType="String">
+	        select max(date) from  diary
+	    </select>	
 	</mapper>
 

@@ -20,12 +20,11 @@
     
     <script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
-    <script type="text/javascript" src="../js/controller/diaryController.js"></script>
     <script type="text/javascript" src="../js/controller/homeController.js"></script>
     <script type="text/javascript" src="../js/service/diaryService.js"></script>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini" ng-app="pinyougou" ng-controller="homeController">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="pinyougou" ng-controller="homeController" ng-init="init()">
 
    <!-- 内容区域 -->
 
@@ -54,7 +53,7 @@
                             <div class="inner">
                                 <h3>???</h3>
 
-                                <p>日记总数</p>
+                                <p>我的日记总数</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -82,7 +81,7 @@
                         <!-- small box -->
                         <div class="small-box bg-yellow">
                             <div class="inner">
-                                <h3>???</h3>
+                                <h3>{{lastEdit}}</h3>
 
                                 <p>最后编辑时间</p>
                             </div>
@@ -97,9 +96,9 @@
                         <!-- small box -->
                         <div class="small-box bg-red">
                             <div class="inner">
-                                <h3>65</h3>
+                                <h3>{{count}}</h3>
 
-                                <p>日PV</p>
+                                <p>全站日记总数</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>

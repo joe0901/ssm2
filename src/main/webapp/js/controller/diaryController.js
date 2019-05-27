@@ -60,12 +60,14 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 	$scope.findById = function(){
 		var id = $location.search()['id'];	//获取跳转带参
 		//alert(id)
-		diaryService.findById(id).success(function(response){
-			// {id:xx,name:yy,firstChar:zz}
-			$scope.entity = response;
-			//回写富文本编辑器中的内容。
-			editor.html($scope.entity.content);
-		});
+		if(id!=undefined){
+			diaryService.findById(id).success(function(response){
+				// {id:xx,name:yy,firstChar:zz}
+				$scope.entity = response;
+				//回写富文本编辑器中的内容。
+				editor.html($scope.entity.content);
+			});
+		}
 	}
 	
 	// 删除品牌:
@@ -95,4 +97,11 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 		});
 	}
 	
+	// 查询日记总数:
+	$scope.count = function(){
+		// 向后台发送请求:
+		diaryService.count().success(function(response){
+			$scope.count = response;
+		});
+	}
 });

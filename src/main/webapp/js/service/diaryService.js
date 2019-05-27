@@ -31,4 +31,12 @@ app.service("diaryService",function($http){
 	this.selectOptionList = function(){
 		return $http.get("../diary/selectOptionList.do");
 	}
+	
+	this.count = function(){
+		return $http.get("../diary/count.do");
+	}
+	
+	this.lastEdit = function(){
+		return $http.get("../diary/lastEdit.do");
+	}
 });

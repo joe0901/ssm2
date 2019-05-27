@@ -78,4 +78,14 @@ public class DiaryController {
 			return new Result(false,"删除失败!");
 		}
 	}
+	
+	@RequestMapping("/count")
+	public int count(){
+		return diaryService.count();
+	}
+	
+	@RequestMapping("/lastEdit")
+	public String lastEdit(){
+		return diaryService.lastEdit();
+	}
 }

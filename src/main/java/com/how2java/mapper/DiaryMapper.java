@@ -24,6 +24,7 @@ public interface DiaryMapper {
       
     public int count();  
     
+    public String lastEdit();
     
     
 }

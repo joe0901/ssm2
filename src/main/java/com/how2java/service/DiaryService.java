@@ -30,4 +30,5 @@ public interface DiaryService {
 
 		public void delete(int[] ids);  
 
+		public String lastEdit();
 }

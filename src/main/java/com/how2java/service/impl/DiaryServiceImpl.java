@@ -94,7 +94,6 @@ public class DiaryServiceImpl implements DiaryService {
 
 	@Override
 	public int count() {
-		PageHelper.startPage(1, 2);
 		return diaryMapper.count();
 	}
 
@@ -112,6 +111,11 @@ public class DiaryServiceImpl implements DiaryService {
 		for(int id:ids) {			
 			diaryMapper.delete(id);
 		}
+	}
+
+	@Override
+	public String lastEdit() {
+		return diaryMapper.lastEdit();
 	}
 
 }
