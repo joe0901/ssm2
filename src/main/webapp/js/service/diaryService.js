@@ -43,4 +43,9 @@ app.service("diaryService",function($http){
 	this.countMy = function(){
 		return $http.get("../diary/countMy.do");
 	}
+	
+	this.afterSave = function(entity){
+		return $http.post("../diary/afterSave.do",entity);
+	}
+
 });

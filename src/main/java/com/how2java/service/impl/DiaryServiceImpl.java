@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -29,12 +28,14 @@ public class DiaryServiceImpl implements DiaryService {
 	final String filePath = "D:\\source\\website";
 	final String fileKind = ".txt";
 	
-	@Override
-	public Long add(Diary diary) throws Exception {
+	private void format(Diary diary) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String date = sdf.format(new Date());
 		diary.setDate(date);
-		
+	}
+	@Override
+	public void add(Diary diary) throws Exception {
+		format(diary);
 		/**
 		 * 将content存到txt,再将txt的路径存到 Diary类的content属性
 		 */
@@ -45,18 +46,16 @@ public class DiaryServiceImpl implements DiaryService {
 		bw.close();
 		
 		diary.setContent(file.getAbsolutePath());
-		Long id = diaryMapper.add(diary);
-		System.out.println("Long id = "+  id);
-		return id;
+		diaryMapper.add(diary);
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Long id) {
 		diaryMapper.delete(id);
 	}
 
 	@Override
-	public Diary get(int id) throws Exception {
+	public Diary get(Long id) throws Exception {
 		Diary diary = diaryMapper.get(id);
 		BufferedReader br = new BufferedReader(new FileReader(diary.getContent()));
 		StringBuilder sb = new StringBuilder();
@@ -65,16 +64,13 @@ public class DiaryServiceImpl implements DiaryService {
 			sb.append(content);
 		}
 		diary.setContent(sb.toString());
-		System.out.println("content:"+sb.toString());
 		br.close();
 		return  diary;
 	}
 
 	@Override
-	public int update(Diary diary) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String date = sdf.format(new Date());
-		diary.setDate(date);
+	public Long update(Diary diary) throws Exception {
+		format(diary);
 		
 		/**
 		 * 将content存到txt,再将txt的路径存到 Diary类的content属性
@@ -95,7 +91,7 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	public int count() {
+	public Long count() {
 		return diaryMapper.count();
 	}
 
@@ -105,13 +101,12 @@ public class DiaryServiceImpl implements DiaryService {
 		// 使用分页插件:
 		PageHelper.startPage(pageNum, pageSize);
 		Page<Diary> page = (Page<Diary>) diaryMapper.list(name);
-		System.out.println(page.size());
 		return new PageResult(page.getTotal(),page.getResult());
 	}
 
 	@Override
-	public void delete(int[] ids) {
-		for(int id:ids) {			
+	public void delete(Long[] ids) {
+		for(Long id:ids) {			
 			diaryMapper.delete(id);
 		}
 	}
@@ -122,8 +117,19 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	public int countMy(String name) {
+	public Long countMy(String name) {
 		return diaryMapper.countMy(name);
+	}
+	@Override
+	public Long afterSave(Diary diary) {
+		return diaryMapper.afterSave(diary);
+	}
+	@Override
+	public PageResult findPage(Diary diary, int pageNum, int pageSize) {
+		// 使用分页插件:
+		PageHelper.startPage(pageNum, pageSize);
+		Page<Diary> page = (Page<Diary>) diaryMapper.list(diary);
+		return new PageResult(page.getTotal(),page.getResult());
 	}
 
 }

@@ -26,7 +26,7 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 		$scope.entity.content=editor.html();
 		// 区分是保存还是修改
 		var object;
-		if($scope.entity.id != null){
+		if($scope.entity.id != undefined){
 			// 更新
 			object = diaryService.update($scope.entity);
 		}else{
@@ -36,11 +36,19 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 		object.success(function(response){
 			// {flag:true,message:xxx}
 			// 判断保存是否成功:
-			if(response!=null){
+			if(response.flag){
 				// 保存成功
-				alert(response);
-				$scope.reloadList();
-				$scope.entity.id = response;
+				alert(response.message);
+				if($scope.entity.id == undefined){
+					alert($scope.entity.id);
+					//新增完要再查一次数据库 条件:writer title 最新的
+					alert($scope.entity.writer);
+					alert($scope.entity.title);
+					diaryService.afterSave($scope.entity).success(function(res_id){
+						alert("res_id:"+res_id);
+						$scope.entity.id  = res_id;
+					})
+				}
 			}else{
 				// 保存失败
 				alert(response.message);
@@ -60,7 +68,7 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 	// 查询一个: 这是在页面跳转之后 init调用的
 	$scope.findById = function(){
 		var id = $location.search()['id'];	//获取跳转带参
-		var writer = $location.search()['writer'];	//获取跳转带参
+		//var writer = $location.search()['writer'];	//获取跳转带参
 		//alert(id)
 		if(id!=undefined){
 			diaryService.findById(id).success(function(response){
@@ -69,9 +77,11 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 				//回写富文本编辑器中的内容。
 				editor.html($scope.entity.content);
 			});
-		}else{
-			$scope.entity={writer:""};
-			$scope.entity.writer = writer;
+		}else{	//沒有id,说明是新建
+			loginService.showName().success(function(response){
+				$scope.entity={writer:""};
+				$scope.entity.writer = response.username;
+			});
 		}
 	}
 	
@@ -96,6 +106,9 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 	// 假设定义一个查询的实体：searchEntity
 	$scope.search = function(page,rows){
 		// 向后台发送请求获取数据:
+		loginService.showName().success(function(response){
+			$scope.searchEntity.writer = response.username;
+		});
 		diaryService.search(page,rows,$scope.searchEntity).success(function(response){
 			$scope.paginationConf.totalItems = response.total;
 			$scope.list = response.rows;
@@ -109,6 +122,5 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 			$scope.count = response;
 		});
 	}
-	
 
 });

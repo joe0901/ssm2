@@ -5,9 +5,6 @@
 
 	<mapper namespace="com.how2java.mapper.DiaryMapper">
 	    <insert id="add" parameterType="Diary" >
-	      	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
-				SELECT LAST_INSERT_ID() AS id
-			</selectKey>
 	    <!-- INSERT INTO diary (writer,DATE,content,title) VALUES ("joejoe","2019-05-22 14:00:00","gogogo","啾啾赛高"); -->
 	    INSERT INTO diary (writer,date,content,title) VALUES (#{writer},#{date},#{content},#{title});
 	    </insert>
@@ -16,7 +13,7 @@
 	        delete from diary where id= #{id}   
 	    </delete>
 	    
-	    <select id="get" parameterType="int" resultType="Diary">
+	    <select id="get" parameterType="Long" resultType="Diary">
 	        select * from   diary  where id= #{id}    
 	    </select>
 
@@ -24,17 +21,35 @@
 	        update diary set writer=#{writer},date=#{date},content=#{content},title=#{title} 
 	        where id=#{id}    
 	    </update>
-	    <select id="list" resultType="Diary" parameterType="String">
+<!-- 	    <select id="list" resultType="Diary" parameterType="String">
 	        select * from  diary where writer = #{name}
-	    </select>	 	   
-	     <select id="count" resultType="int">
+	    </select> -->	
+	     
+	    <!-- 做搜索+分页 -->
+	    <select id="list" resultType="Diary" parameterType="Diary">
+	        select * from  diary 
+	        <where>
+        	  <if test="writer != null" >
+			       writer = #{writer}
+		      </if>
+		      <if test="title != null" >
+		       		and title like "%"#{title}"%"
+		      </if>
+	        </where>
+	    </select>
+	    	   
+	     <select id="count" resultType="Long">
 	        select count(*) from  diary
 	    </select>	
 	    <select id="lastEdit" resultType="String">
 	        select max(date) from  diary
 	    </select>
-	    <select id="countMy" resultType="int" parameterType="String">
+	    <select id="countMy" resultType="Long" parameterType="String">
 	        select count(*) from  diary where writer = #{name}
 	    </select>		
+	    <select id="afterSave" resultType="Long" parameterType="Diary">
+	        select max(id) from  diary where writer = #{writer} and title = #{title}
+	    </select>	
+
 	</mapper>
 

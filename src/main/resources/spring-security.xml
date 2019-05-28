@@ -29,8 +29,6 @@
 			default-target-url	:登录成功后跳转的页面
 			login-processing-url:提交的路径的设置 默认值"/login" 可以修改
 			
-			
-			
 		-->
 		<form-login login-page="/login.html" always-use-default-target="true" default-target-url="/admin/index.html"  authentication-failure-url="/login.html"/>
 		

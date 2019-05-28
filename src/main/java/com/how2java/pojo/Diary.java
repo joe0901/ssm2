@@ -3,15 +3,15 @@ package com.how2java.pojo;
 import java.io.Serializable;
 
 public class Diary implements Serializable {
-private int id;
+private Long id;
 private String writer;
 private String date;
 private String content;
 private String title;
-public int getId() {
+public Long getId() {
 	return id;
 }
-public void setId(int id) {
+public void setId(Long id) {
 	this.id = id;
 }
 public String getWriter() {

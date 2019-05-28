@@ -42,7 +42,6 @@ public class DiaryController {
 	public Result save(@RequestBody Diary diary) {
 		try {
 			diaryService.add(diary);
-
 			return new Result(true, "保存成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,7 +50,7 @@ public class DiaryController {
 	}
 
 	@RequestMapping("/findById")
-	public Diary findById(int id) throws Exception {
+	public Diary findById(Long id) throws Exception {
 		return diaryService.get(id);
 	}
 
@@ -62,19 +61,17 @@ public class DiaryController {
 
 			return new Result(true, "修改成功!");
 		} catch (Exception e) {
-			e.printStackTrace();
 			return new Result(false, "修改失败!");
 		}
 	}
 
 	@RequestMapping("/findByPage")
 	public PageResult findByPage(int page, int rows) {
-		System.out.println("findpage:name"+showName());
 		return diaryService.findByPage(page, rows,showName());
 	}
 
 	@RequestMapping("/delete")
-	public Result delete(int[] ids) {
+	public Result delete(Long[] ids) {
 		try {
 			diaryService.delete(ids);
 			return new Result(true, "删除成功!");
@@ -85,12 +82,12 @@ public class DiaryController {
 	}
 
 	@RequestMapping("/count")
-	public int count() {
+	public Long count() {
 		return diaryService.count();
 	}
 	
 	@RequestMapping("/countMy")
-	public int countMy() {
+	public Long countMy() {
 		return diaryService.countMy(showName());
 	}
 
@@ -98,4 +95,22 @@ public class DiaryController {
 	public String lastEdit() {
 		return diaryService.lastEdit();
 	}
+	
+	@RequestMapping("/afterSave")
+	public Long afterSave(@RequestBody Diary diary) throws Exception {
+		return diaryService.afterSave(diary);
+	}
+	
+	/**
+	 * 查询+分页
+	 * @param brand
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@RequestMapping("/search")
+	public PageResult search(@RequestBody Diary diary, int page, int rows  ){
+		return diaryService.findPage(diary, page, rows);		
+	}
+	
 }
