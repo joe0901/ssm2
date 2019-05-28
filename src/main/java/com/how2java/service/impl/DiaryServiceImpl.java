@@ -30,7 +30,7 @@ public class DiaryServiceImpl implements DiaryService {
 	final String fileKind = ".txt";
 	
 	@Override
-	public int add(Diary diary) throws Exception {
+	public Long add(Diary diary) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String date = sdf.format(new Date());
 		diary.setDate(date);
@@ -45,7 +45,9 @@ public class DiaryServiceImpl implements DiaryService {
 		bw.close();
 		
 		diary.setContent(file.getAbsolutePath());
-		return diaryMapper.add(diary);
+		Long id = diaryMapper.add(diary);
+		System.out.println("Long id = "+  id);
+		return id;
 	}
 
 	@Override
@@ -88,8 +90,8 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	public List<Diary> list() {
-		return diaryMapper.list();
+	public List<Diary> list(String name) {
+		return diaryMapper.list(name);
 	}
 
 	@Override
@@ -99,10 +101,11 @@ public class DiaryServiceImpl implements DiaryService {
 
 	@Override
 	// 分页查询
-	public PageResult findByPage(int pageNum, int pageSize) {
+	public PageResult findByPage(int pageNum, int pageSize,String name) {
 		// 使用分页插件:
 		PageHelper.startPage(pageNum, pageSize);
-		Page<Diary> page = (Page<Diary>) diaryMapper.list();
+		Page<Diary> page = (Page<Diary>) diaryMapper.list(name);
+		System.out.println(page.size());
 		return new PageResult(page.getTotal(),page.getResult());
 	}
 
@@ -116,6 +119,11 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	public String lastEdit() {
 		return diaryMapper.lastEdit();
+	}
+
+	@Override
+	public int countMy(String name) {
+		return diaryMapper.countMy(name);
 	}
 
 }

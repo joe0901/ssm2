@@ -22,6 +22,7 @@
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
     <script type="text/javascript" src="../js/controller/diaryController.js"></script>
     <script type="text/javascript" src="../js/service/diaryService.js"></script>
+        <script type="text/javascript" src="../js/service/loginService.js"></script>
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="diaryController">
   <!-- .box-body -->
@@ -38,7 +39,8 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> <a href="diary_edit.html#"  target="iframe">新建</a></button>
+                                        <!-- <button  class="btn btn-default" title="新建"  ><i class="fa fa-file-o"></i> <a href="diary_edit.html">新建</a></button> -->
+                                        <a class="btn btn-default" href="diary_edit.html">新建</a>
                                         <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i class="fa fa-trash-o"></i> 删除</button>           
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
@@ -92,43 +94,5 @@
                         
                      </div>
                     <!-- /.box-body -->
-         
-<!-- 编辑窗口 -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" >
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel">日记编辑</h3>
-		</div>
-		<div class="modal-body">		
-			<table class="table table-bordered table-striped"  width="800px">
-		      	<tr>
-		      		<td>标题</td>
-		      		<td><input ng-model="entity.title" class="form-control" placeholder="标题" >  </td>
-		      	</tr>		      	
-		      	<tr>
-		      		<td>作者</td>
-		      		<td><input ng-model="entity.writer" class="form-control" placeholder="作者">  </td>
-		      	</tr>	
-		      	<tr>
-		      		<td>正文</td>
-		      		<td><input ng-model="entity.content" class="form-control" placeholder="正文">  </td>
-		      		<!-- <td><input ng-model="entity.content" type="datetime" placeholder="正文">  </td> -->
-		      	</tr>	
-		      	<tr>
-		      		<td>日期</td>
-		      		<td><input ng-model="entity.date" class="form-control" placeholder="日期">  </td>
-		      	</tr>		      	
-			 </table>				
-		</div>
-		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
-			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
-		</div>
-	  </div>
-	</div>
-</div>
-   
 </body>
 </html>

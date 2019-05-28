@@ -7,7 +7,7 @@ import com.how2java.pojo.entity.PageResult;
 
 public interface DiaryService {
 
-	  public int add(Diary  diary) throws Exception;  
+	  public Long add(Diary  diary) throws Exception;  
 	       
 	      
 	    public void delete(int id);  
@@ -19,16 +19,19 @@ public interface DiaryService {
 	    public int update(Diary  category) throws Exception;   
 	       
 	      
-	    public List<Diary > list();
+	    public List<Diary > list(String name);
 	    
 	      
 	    public int count();
 
 
-		PageResult findByPage(int pageNum, int pageSize);
+		PageResult findByPage(int pageNum, int pageSize,String name);
 
 
 		public void delete(int[] ids);  
 
 		public String lastEdit();
+
+
+		public int countMy(String name);
 }

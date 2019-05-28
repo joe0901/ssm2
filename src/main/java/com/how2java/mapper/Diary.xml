@@ -5,6 +5,9 @@
 
 	<mapper namespace="com.how2java.mapper.DiaryMapper">
 	    <insert id="add" parameterType="Diary" >
+	      	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+				SELECT LAST_INSERT_ID() AS id
+			</selectKey>
 	    <!-- INSERT INTO diary (writer,DATE,content,title) VALUES ("joejoe","2019-05-22 14:00:00","gogogo","啾啾赛高"); -->
 	    INSERT INTO diary (writer,date,content,title) VALUES (#{writer},#{date},#{content},#{title});
 	    </insert>
@@ -21,14 +24,17 @@
 	        update diary set writer=#{writer},date=#{date},content=#{content},title=#{title} 
 	        where id=#{id}    
 	    </update>
-	    <select id="list" resultType="Diary">
-	        select * from  diary
+	    <select id="list" resultType="Diary" parameterType="String">
+	        select * from  diary where writer = #{name}
 	    </select>	 	   
 	     <select id="count" resultType="int">
 	        select count(*) from  diary
 	    </select>	
 	    <select id="lastEdit" resultType="String">
 	        select max(date) from  diary
-	    </select>	
+	    </select>
+	    <select id="countMy" resultType="int" parameterType="String">
+	        select count(*) from  diary where writer = #{name}
+	    </select>		
 	</mapper>
 

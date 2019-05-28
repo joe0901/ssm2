@@ -1,5 +1,5 @@
 // 定义控制器:
-app.controller("diaryController",function($scope,$controller,$http,$location,diaryService){
+app.controller("diaryController",function($scope,$controller,$http,$location,diaryService,loginService){
 	// AngularJS中的继承:伪继承
 	$controller('baseController',{$scope:$scope});
 	
@@ -36,10 +36,11 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 		object.success(function(response){
 			// {flag:true,message:xxx}
 			// 判断保存是否成功:
-			if(response.flag==true){
+			if(response!=null){
 				// 保存成功
-				alert(response.message);
+				alert(response);
 				$scope.reloadList();
+				$scope.entity.id = response;
 			}else{
 				// 保存失败
 				alert(response.message);
@@ -59,6 +60,7 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 	// 查询一个: 这是在页面跳转之后 init调用的
 	$scope.findById = function(){
 		var id = $location.search()['id'];	//获取跳转带参
+		var writer = $location.search()['writer'];	//获取跳转带参
 		//alert(id)
 		if(id!=undefined){
 			diaryService.findById(id).success(function(response){
@@ -67,6 +69,9 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 				//回写富文本编辑器中的内容。
 				editor.html($scope.entity.content);
 			});
+		}else{
+			$scope.entity={writer:""};
+			$scope.entity.writer = writer;
 		}
 	}
 	
@@ -104,4 +109,6 @@ app.controller("diaryController",function($scope,$controller,$http,$location,dia
 			$scope.count = response;
 		});
 	}
+	
+
 });

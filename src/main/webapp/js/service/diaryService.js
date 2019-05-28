@@ -39,4 +39,8 @@ app.service("diaryService",function($http){
 	this.lastEdit = function(){
 		return $http.get("../diary/lastEdit.do");
 	}
+	
+	this.countMy = function(){
+		return $http.get("../diary/countMy.do");
+	}
 });

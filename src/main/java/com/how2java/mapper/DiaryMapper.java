@@ -7,7 +7,7 @@ import com.how2java.pojo.Diary ;
 public interface DiaryMapper {
  
       
-    public int add(Diary  diary);  
+    public Long add(Diary  diary);  
        
       
     public void delete(int id);  
@@ -19,12 +19,15 @@ public interface DiaryMapper {
     public int update(Diary  diary);   
        
       
-    public List<Diary > list();
+    public List<Diary > list(String name);
     
       
     public int count();  
     
     public String lastEdit();
+
+
+	public int countMy(String name);
     
     
 }
